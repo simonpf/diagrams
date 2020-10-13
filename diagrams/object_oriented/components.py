@@ -5,68 +5,15 @@ diagram.object_oriented.components
 Provides the component classes that can be used to construct
 diagrams.
 """
-from abc import ABCMeta, abstractmethod, abstractproperty
+from abc import ABC, abstractproperty
 import numpy as np
 
 from diagrams.object_oriented.color import Color
 from diagrams.object_oriented.coordinates import Coordinates
+from diagrams.object_oriented.diagram import DiagramComponent
 
-###############################################################################
-# Diagram component base class
-###############################################################################
 
-class DiagramComponent(metaclass=ABCMeta):
-    """
-    Base class for diagrams component.
-
-    Attributes:
-        position(Coordinates): The component's position represented as
-            as Coordinates object.
-        color(Color): The components color represented as Color
-            as Color object.
-    """
-    def __init__(self, position, color):
-        """
-        Create diagram component.
-
-        Args:
-            position(Coordinates): The position of the object
-            color(Color): The color of the object.
-        """
-        self.position = position
-        self.color = color
-
-    def translate(self, delta):
-        """
-        Translate object by given direction.
-
-        Args:
-            delta(Coordinates): Coordinates object representing the direction
-                step by which to translate the object.
-        """
-        self.position = self.position + delta
-
-    def set_color(self, new_color):
-        """
-        Set color of component.
-
-        Args:
-            new_color(Color): The new color of the component.
-        """
-        self.color = new_color
-
-    @abstractmethod
-    def draw(self, canvas, offset=Coordinates(0, 0)):
-        """
-        Draw component on canvas.
-
-        Params:
-            canvas: ``tkinter.Canvas`` object onto which to draw the component.
-            offset: Offset to calculate the absolute position at which to
-                draw the component.
-        """
-
-class Connectable(metaclass=ABCMeta):
+class Connectable(ABC):
     """
     Abstract base class for object that can be connected with other object using
     arrows.
@@ -128,18 +75,58 @@ class Connectable(metaclass=ABCMeta):
         bottom left of the diagram component.
         """
 
+class ComponentBase(DiagramComponent):
+    """
+    Base class for diagram components.
+
+    Attributes:
+        position(Coordinates): The component's position represented as
+            as Coordinates object.
+        color(Color): The components color represented as Color
+            as Color object.
+    """
+    def __init__(self, position, color):
+        """
+        Create diagram component.
+
+        Args:
+            position(Coordinates): The position of the object
+            color(Color): The color of the object.
+        """
+        self.position = position
+        self.color = color
+
+    def translate(self, delta):
+        """
+        Translate object by given direction.
+
+        Args:
+            delta(Coordinates): Coordinates object representing the direction
+                step by which to translate the object.
+        """
+        self.position = self.position + delta
+
+    def set_color(self, new_color):
+        """
+        Set color of component.
+
+        Args:
+            new_color(Color): The new color of the component.
+        """
+        self.color = new_color
+
 ###############################################################################
 # Text
 ###############################################################################
 
-class Text(DiagramComponent):
+class Text(ComponentBase):
     """
     A colored text in a diagram.
     """
     def __init__(self,
                  text,
                  position,
-                 color=Color.Black()):
+                 color=Color.black()):
         """
         Create text object.
 
@@ -148,7 +135,7 @@ class Text(DiagramComponent):
             position(Coordinates): Position around which to center the text.
             color(Color): The fill color to use for the text.
         """
-        super().__init__(position, color)
+        super().__init__(Coordinates(position), color)
         self.text = text
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
@@ -171,14 +158,14 @@ class Text(DiagramComponent):
 # Arrow
 ###############################################################################
 
-class Arrow(DiagramComponent):
+class Arrow(ComponentBase):
     """
     An arrow in a diagram.
 
     Attributes:
         end(Coorinates): End position of the arrow.
     """
-    def __init__(self, start, end, color=Color.Black(), head_size=10):
+    def __init__(self, start, end, color=Color.black(), head_size=10):
         """
         Create arrow.
 
@@ -188,8 +175,8 @@ class Arrow(DiagramComponent):
             color(Color): Arrow color.
             head_size(int): Size of arrow head in pixels.
         """
-        super().__init__(start, color)
-        self.end = end
+        super().__init__(Coordinates(start), color)
+        self.end = Coordinates(end)
         self.head_size = head_size
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
@@ -227,7 +214,7 @@ class Arrow(DiagramComponent):
 # Rectangle
 ###############################################################################
 
-class Rectangle(DiagramComponent, Connectable):
+class Rectangle(ComponentBase, Connectable):
     """
     A filled rectangle.
 
@@ -238,7 +225,7 @@ class Rectangle(DiagramComponent, Connectable):
     def __init__(self,
                  position,
                  dimensions,
-                 color = Color.Red()):
+                 color = Color.red()):
         """
         Create rectangle.
 
@@ -338,7 +325,7 @@ class Rectangle(DiagramComponent, Connectable):
 # Node
 ###############################################################################
 
-class Node(DiagramComponent, Connectable):
+class Node(ComponentBase, Connectable):
     """
     A node is a rectangular shape with a centered text.
 
@@ -350,7 +337,7 @@ class Node(DiagramComponent, Connectable):
                  position,
                  dimensions,
                  text,
-                 color=Color.Red()):
+                 color=Color.red()):
         """
         Create new node.
 
@@ -360,11 +347,13 @@ class Node(DiagramComponent, Connectable):
             text(str): The text to print in the node.
             color(Color): Color of node background.
         """
+        position = Coordinates(position)
+        dimensions = Coordinates(dimensions)
         super().__init__(position, color)
         self.rectangle = Rectangle(Coordinates(0, 0), dimensions)
         self.text = Text(text,
                          dimensions * 0.5,
-                         color=Color.Black())
+                         color=Color.black())
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
         """
