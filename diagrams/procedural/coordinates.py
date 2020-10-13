@@ -55,6 +55,10 @@ def left(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (0, dimensions[1] / 2.0))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (-radius, 0))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -77,6 +81,11 @@ def top_left(component):
     if component_type in [ComponentType.RECTANGLE, ComponentType.RECTANGULAR_NODE]:
         position = component["position"]
         return position
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (-radius / np.sqrt(2),
+                                          -radius / np.sqrt(2)))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -100,6 +109,10 @@ def top(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0] / 2.0, 0))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (0, -radius))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -123,6 +136,11 @@ def top_right(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], 0))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (+radius / np.sqrt(2),
+                                          -radius / np.sqrt(2)))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -146,6 +164,10 @@ def right(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], dimensions[1] / 2.0))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (radius, 0))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -169,6 +191,11 @@ def bottom_right(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], dimensions[1]))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (radius / np.sqrt(2),
+                                          radius / np.sqrt(2)))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -192,6 +219,10 @@ def bottom(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0] / 2, dimensions[1]))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (0, radius))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."
@@ -215,6 +246,11 @@ def bottom_left(component):
         position = component["position"]
         dimensions = component["dimensions"]
         return add_coordinates(position, (0, dimensions[1]))
+    elif component_type == ComponentType.CIRCLE:
+        position = component["position"]
+        radius = component["radius"]
+        return add_coordinates(position, (-radius / np.sqrt(2),
+                                          radius / np.sqrt(2)))
     else:
         raise ValueError(
             f"Component type {component_type} is not a known" "component type."

@@ -16,6 +16,8 @@ class ComponentType(Enum):
     TEXT = 2
     ARROW = 3
     RECTANGULAR_NODE = 4
+    CIRCLE = 5
+
 
 def create_rectangle(position, dimensions, color="red"):
     """
@@ -111,4 +113,24 @@ def create_rectangular_node(
         "text": text,
         "background_color": background_color,
         "text_color": text_color,
+    }
+
+def create_circle(position, radius, color="red"):
+    """
+    Create a filled circle.
+
+        Args:
+            position(``tuple``): The position of the center of the circle.
+            radius(``float``): The radius of the circle
+            color(``str``): The fill color for the circle given as
+                ``tkinter``-compatible color string.
+
+        Return:
+            ``dict`` representing the diagram component.
+    """
+    return {
+        "type": ComponentType.CIRCLE,
+        "position": position,
+        "radius": radius,
+        "color": color,
     }

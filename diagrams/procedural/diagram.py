@@ -52,6 +52,25 @@ def draw_rectangle(component):
         position[0], position[1], lower_right[0], lower_right[1], fill=color
     )
 
+def draw_circle(component):
+    """
+    Draw circle on canvas.
+
+    Args:
+        component(``dict``): The rectangle created using the create_circle
+            function.
+    """
+    global _CANVAS
+    canvas = _CANVAS
+    position = component["position"]
+    radius = component["radius"]
+    color = component["color"]
+    x_1 = position[0] - radius
+    y_1 = position[1] - radius
+    x_2 = position[0] + radius
+    y_2 = position[1] + radius
+    canvas.create_oval(x_1, y_1, x_2, y_2, fill=color)
+
 def draw_text(component):
     """
     Draw text on canvas.
@@ -129,6 +148,8 @@ def draw(component):
     component_type = component["type"]
     if component_type == ComponentType.RECTANGLE:
         draw_rectangle(component)
+    elif component_type == ComponentType.CIRCLE:
+        draw_circle(component)
     elif component_type == ComponentType.TEXT:
         draw_text(component)
     elif component_type == ComponentType.ARROW:
