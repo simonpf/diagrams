@@ -16,8 +16,6 @@ class ComponentType(Enum):
     TEXT = 2
     ARROW = 3
     RECTANGULAR_NODE = 4
-    CIRCULAR_NODE = 5
-
 
 def create_rectangle(position, dimensions, color="red"):
     """
