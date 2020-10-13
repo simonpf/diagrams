@@ -4,6 +4,7 @@ Test for the diagrams.object_oriented.coordinates module.
 import pytest
 from diagrams.object_oriented.coordinates import Coordinates
 
+
 def test_constructor():
     """
     Test constructor for different input types and assert that
@@ -18,7 +19,8 @@ def test_constructor():
     with pytest.raises(ValueError):
         Coordinates(1)
     with pytest.raises(ValueError):
-        Coordinates('a', 'b')
+        Coordinates("a", "b")
+
 
 def test_arithmetic():
     """

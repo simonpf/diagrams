@@ -7,6 +7,7 @@ as length-2 tuples.
 """
 from diagrams.procedural.components import ComponentType
 
+
 def add_coordinates(coord_1, coord_2):
     """
     Adds two coordinates.
@@ -22,6 +23,7 @@ def add_coordinates(coord_1, coord_2):
     """
     return (coord_1[0] + coord_2[0], coord_1[1] + coord_2[1])
 
+
 def scale_coordinates(coord, c):
     """
     Scale coordinates.
@@ -34,6 +36,7 @@ def scale_coordinates(coord, c):
         The coordinate scaled by the given scaling factor.
     """
     return (coord[0] * c, coord[1] * c)
+
 
 def left(component):
     """
@@ -53,8 +56,9 @@ def left(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (0, dimensions[1] / 2.0))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
 
 
 def top_left(component):
@@ -74,8 +78,10 @@ def top_left(component):
         position = component["position"]
         return position
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def top(component):
     """
@@ -95,8 +101,10 @@ def top(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0] / 2.0, 0))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def top_right(component):
     """
@@ -116,8 +124,10 @@ def top_right(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], 0))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def right(component):
     """
@@ -137,8 +147,10 @@ def right(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], dimensions[1] / 2.0))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def bottom_right(component):
     """
@@ -158,8 +170,10 @@ def bottom_right(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0], dimensions[1]))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def bottom(component):
     """
@@ -179,8 +193,10 @@ def bottom(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (dimensions[0] / 2, dimensions[1]))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )
+
 
 def bottom_left(component):
     """
@@ -200,5 +216,6 @@ def bottom_left(component):
         dimensions = component["dimensions"]
         return add_coordinates(position, (0, dimensions[1]))
     else:
-        raise ValueError(f"Component type {component_type} is not a known"
-                         "component type.")
+        raise ValueError(
+            f"Component type {component_type} is not a known" "component type."
+        )

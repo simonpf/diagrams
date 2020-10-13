@@ -3,15 +3,18 @@ Global fixtures to allow testing tkinter apps.
 """
 import pytest
 
+
 class Tk:
     """
     Mock of the tkinter.Tk class.
     """
+
     def __init__(*args, **kwargs):
         pass
 
     def mainloop(*args, **kwargs):
         pass
+
 
 class Canvas:
     """

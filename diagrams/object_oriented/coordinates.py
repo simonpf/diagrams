@@ -5,6 +5,8 @@ diagram.object_oriented.coordinates
 Provides the ``Coordinates`` class representing coordinates in a 2D
 Cartesian space.
 """
+
+
 class Coordinates:
     """
     The Coordinates class represents a pair of 2D Cartesian coordinates.
@@ -13,6 +15,7 @@ class Coordinates:
         self.x(float): The horizontal coordinate.
         self.y(float): The vertical coordinate.
     """
+
     def __init__(self, *args):
         """
         Create new coordinate pair.
@@ -24,8 +27,9 @@ class Coordinates:
                 - The two coordinates separately.
         """
         if len(args) > 2:
-            raise ValueError("The Coordinate constructor takes either one or"
-                             " two parameters")
+            raise ValueError(
+                "The Coordinate constructor takes either one or" " two parameters"
+            )
         if len(args) == 1:
             arg = args[0]
             if type(arg) == Coordinates:
@@ -37,18 +41,22 @@ class Coordinates:
                     self.x = float(coords[0])
                     self.y = float(coords[1])
                 except:
-                    raise ValueError("Single argument provided to Coordinates"
-                                     "constructor should be Coordinates object"
-                                     "or iterable of length 2 with elements"
-                                     " that can be converted to float.")
+                    raise ValueError(
+                        "Single argument provided to Coordinates"
+                        "constructor should be Coordinates object"
+                        "or iterable of length 2 with elements"
+                        " that can be converted to float."
+                    )
         else:
             try:
                 x, y = args
                 self.x = float(x)
                 self.y = float(y)
             except:
-                raise ValueError("The two arguments provided to the Coordinates"
-                                 "constructor muse be convertible to float.")
+                raise ValueError(
+                    "The two arguments provided to the Coordinates"
+                    "constructor muse be convertible to float."
+                )
 
     def __add__(self, other):
         """Component-wise addition of coordinates."""

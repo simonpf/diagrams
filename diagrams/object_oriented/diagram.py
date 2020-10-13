@@ -13,11 +13,13 @@ from diagrams.object_oriented.coordinates import Coordinates
 # DiagramComponent ABC
 ###############################################################################
 
+
 class DiagramComponent(ABC):
     """
     The basic interface for components that can be added to and drawn as
     parts of a diagram.
     """
+
     @abstractmethod
     def draw(self, canvas, offset=Coordinates(0, 0)):
         """
@@ -31,15 +33,18 @@ class DiagramComponent(ABC):
                 draw the component.
         """
 
+
 ###############################################################################
 # Diagram class
 ###############################################################################
+
 
 class Diagram:
     """
     The diagram class contains diagram components and draws them
     onto a canvas.
     """
+
     def __init__(self, width, height):
         """
         Create diagram.
@@ -55,8 +60,9 @@ class Diagram:
     def add(self, component):
         """Add component to diagram. """
         if not isinstance(component, DiagramComponent):
-            raise TypeError("Given component does not implement the"
-                            " DiagramComponent interface.")
+            raise TypeError(
+                "Given component does not implement the" " DiagramComponent interface."
+            )
         self.components.append(component)
 
     def draw(self):
@@ -67,10 +73,7 @@ class Diagram:
             Canvas with all diagram components drawn onto.
         """
         root = tkinter.Tk()
-        canvas = tkinter.Canvas(root,
-                                bg="white",
-                                height=self.height,
-                                width=self.width)
+        canvas = tkinter.Canvas(root, bg="white", height=self.height, width=self.width)
         for component in self.components:
             component.draw(canvas)
 

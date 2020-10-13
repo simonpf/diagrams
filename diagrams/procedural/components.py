@@ -6,19 +6,20 @@ This module provides functions to create diagram components.
 """
 from enum import Enum
 
+
 class ComponentType(Enum):
     """
     Enum class representing the component type.
     """
+
     RECTANGLE = 1
     TEXT = 2
     ARROW = 3
     RECTANGULAR_NODE = 4
     CIRCULAR_NODE = 5
 
-def create_rectangle(position,
-                     dimensions,
-                     color="red"):
+
+def create_rectangle(position, dimensions, color="red"):
     """
     Create a filled rectangle.
 
@@ -33,14 +34,15 @@ def create_rectangle(position,
         Return:
             ``dict`` representing the diagram component.
     """
-    return {"type": ComponentType.RECTANGLE,
-            "position": position,
-            "dimensions": dimensions,
-            "color": color}
+    return {
+        "type": ComponentType.RECTANGLE,
+        "position": position,
+        "dimensions": dimensions,
+        "color": color,
+    }
 
-def create_text(position,
-                text,
-                color="red"):
+
+def create_text(position, text, color="red"):
     """
     Create text component.
 
@@ -55,15 +57,15 @@ def create_text(position,
             ``dict`` representing the diagram component.
 
     """
-    return {"type": ComponentType.TEXT,
-            "position": position,
-            "text": text,
-            "color": color}
+    return {
+        "type": ComponentType.TEXT,
+        "position": position,
+        "text": text,
+        "color": color,
+    }
 
-def create_arrow(start,
-                 end,
-                 color="black",
-                 head_size=10):
+
+def create_arrow(start, end, color="black", head_size=10):
     """
     Draw arrow between two positions.
 
@@ -77,17 +79,18 @@ def create_arrow(start,
             ``dict`` representing the diagram component.
 
     """
-    return {"type": ComponentType.ARROW,
-            "start": start,
-            "end": end,
-            "color": color,
-            "head_size": 10}
+    return {
+        "type": ComponentType.ARROW,
+        "start": start,
+        "end": end,
+        "color": color,
+        "head_size": 10,
+    }
 
-def create_rectangular_node(position,
-                            dimensions,
-                            text,
-                            background_color="red",
-                            text_color="black"):
+
+def create_rectangular_node(
+    position, dimensions, text, background_color="red", text_color="black"
+):
     """
     A rectangular diagram node is a rectangular shape with a centered text.
 
@@ -103,9 +106,11 @@ def create_rectangular_node(position,
         Return:
             ``dict`` representing the diagram component.
     """
-    return {"type": ComponentType.RECTANGULAR_NODE,
-            "position": position,
-            "dimensions": dimensions,
-            "text": text,
-            "background_color": background_color,
-            "text_color": text_color}
+    return {
+        "type": ComponentType.RECTANGULAR_NODE,
+        "position": position,
+        "dimensions": dimensions,
+        "text": text,
+        "background_color": background_color,
+        "text_color": text_color,
+    }

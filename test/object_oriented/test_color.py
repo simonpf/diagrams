@@ -4,6 +4,7 @@ Tests for the diagrams.object_oriented.color module.
 import pytest
 from diagrams.object_oriented.color import Color
 
+
 def test_color():
     """
     Test that creating of colors works and that conversion to string
@@ -18,6 +19,7 @@ def test_color():
         color = Color("abc")
 
     assert str(color) == "#000000"
+
 
 def test_mix():
     """

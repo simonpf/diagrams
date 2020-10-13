@@ -4,6 +4,8 @@ diagram.object_oriented.color
 
 Provides the color class representing colors of diagram components.
 """
+
+
 class Color:
     """
     The color of diagram components.
@@ -11,6 +13,7 @@ class Color:
     Attributes:
         color_code(``str``): The color represented in HTML HEX string format.
     """
+
     @staticmethod
     def black():
         """The color black."""
@@ -41,8 +44,9 @@ class Color:
         if not isinstance(color_code, str):
             raise TypeError("The given color code must be of type str.")
         if not color_code[0] == "#" or len(color_code) != 7:
-            raise ValueError("The given color code does must match the format"
-                             "'#xxxxxx'")
+            raise ValueError(
+                "The given color code does must match the format" "'#xxxxxx'"
+            )
         self.color_code = color_code
 
     def __add__(self, other):

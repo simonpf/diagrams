@@ -12,6 +12,10 @@ from diagrams.object_oriented.color import Color
 from diagrams.object_oriented.coordinates import Coordinates
 from diagrams.object_oriented.diagram import DiagramComponent
 
+###############################################################################
+# Connectable
+###############################################################################
+
 
 class Connectable(ABC):
     """
@@ -75,6 +79,12 @@ class Connectable(ABC):
         bottom left of the diagram component.
         """
 
+
+###############################################################################
+# ComponentBase
+###############################################################################
+
+
 class ComponentBase(DiagramComponent):
     """
     Base class for diagram components.
@@ -85,6 +95,7 @@ class ComponentBase(DiagramComponent):
         color(Color): The components color represented as Color
             as Color object.
     """
+
     def __init__(self, position, color):
         """
         Create diagram component.
@@ -115,18 +126,18 @@ class ComponentBase(DiagramComponent):
         """
         self.color = new_color
 
+
 ###############################################################################
 # Text
 ###############################################################################
+
 
 class Text(ComponentBase):
     """
     A colored text in a diagram.
     """
-    def __init__(self,
-                 text,
-                 position,
-                 color=Color.black()):
+
+    def __init__(self, text, position, color=Color.black()):
         """
         Create text object.
 
@@ -149,14 +160,13 @@ class Text(ComponentBase):
             canvas(ipycanvas.Canvas): Canvas to draw the rectangle on.
         """
         position = self.position + offset
-        canvas.create_text(position.x,
-                           position.y,
-                           text=self.text,
-                           fill=str(self.color))
+        canvas.create_text(position.x, position.y, text=self.text, fill=str(self.color))
+
 
 ###############################################################################
 # Arrow
 ###############################################################################
+
 
 class Arrow(ComponentBase):
     """
@@ -165,6 +175,7 @@ class Arrow(ComponentBase):
     Attributes:
         end(Coorinates): End position of the arrow.
     """
+
     def __init__(self, start, end, color=Color.black(), head_size=10):
         """
         Create arrow.
@@ -192,17 +203,11 @@ class Arrow(ComponentBase):
         position = self.position + offset
         end = self.end + offset
 
-        canvas.create_line(position.x,
-                           position.y,
-                           end.x,
-                           end.y,
-                           fill=str(self.color))
+        canvas.create_line(position.x, position.y, end.x, end.y, fill=str(self.color))
 
-
-
-
-        angle = np.pi + np.arctan2(self.end.y - self.position.y,
-                                   self.end.x - self.position.x)
+        angle = np.pi + np.arctan2(
+            self.end.y - self.position.y, self.end.x - self.position.x
+        )
         x_1 = self.end.x + self.head_size * np.cos(angle + np.pi / 6)
         y_1 = self.end.y + self.head_size * np.sin(angle + np.pi / 6)
         x_2 = self.end.x + self.head_size * np.cos(angle - np.pi / 6)
@@ -210,9 +215,11 @@ class Arrow(ComponentBase):
         coordinates = [end.x, end.y, x_1, y_1, x_2, y_2]
         canvas.create_polygon(coordinates, outline=str(self.color), fill=None)
 
+
 ###############################################################################
 # Rectangle
 ###############################################################################
+
 
 class Rectangle(ComponentBase, Connectable):
     """
@@ -222,10 +229,8 @@ class Rectangle(ComponentBase, Connectable):
         dimensions(Coordinates): Coordinates object holding the width
             and height of the rectangle.
     """
-    def __init__(self,
-                 position,
-                 dimensions,
-                 color = Color.red()):
+
+    def __init__(self, position, dimensions, color=Color.red()):
         """
         Create rectangle.
 
@@ -251,11 +256,9 @@ class Rectangle(ComponentBase, Connectable):
         """
         position = self.position + offset
         lower_right = position + self.dimensions
-        canvas.create_rectangle(position.x,
-                                position.y,
-                                lower_right.x,
-                                lower_right.y,
-                                fill=str(self.color))
+        canvas.create_rectangle(
+            position.x, position.y, lower_right.x, lower_right.y, fill=str(self.color)
+        )
 
     @property
     def left(self):
@@ -321,9 +324,11 @@ class Rectangle(ComponentBase, Connectable):
         """
         return self.position + Coordinates(0, self.dimensions.y)
 
+
 ###############################################################################
 # RectangularNode
 ###############################################################################
+
 
 class RectangularNode(ComponentBase, Connectable):
     """
@@ -332,11 +337,8 @@ class RectangularNode(ComponentBase, Connectable):
     Attributes:
         text(Text): The text component of the node.
     """
-    def __init__(self,
-                 position,
-                 dimensions,
-                 text,
-                 color=Color.red()):
+
+    def __init__(self, position, dimensions, text, color=Color.red()):
         """
         Create new node.
 
@@ -350,9 +352,7 @@ class RectangularNode(ComponentBase, Connectable):
         dimensions = Coordinates(dimensions)
         super().__init__(position, color)
         self.rectangle = Rectangle(Coordinates(0, 0), dimensions)
-        self.text = Text(text,
-                         dimensions * 0.5,
-                         color=Color.black())
+        self.text = Text(text, dimensions * 0.5, color=Color.black())
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
         """
