@@ -351,7 +351,7 @@ class RectangularNode(ComponentBase, Connectable):
         position = Coordinates(position)
         dimensions = Coordinates(dimensions)
         super().__init__(position, color)
-        self.rectangle = Rectangle(Coordinates(0, 0), dimensions)
+        self.rectangle = Rectangle(Coordinates(0, 0), dimensions, color=color)
         self.text = Text(text, dimensions * 0.5, color=Color.black())
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
