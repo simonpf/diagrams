@@ -60,7 +60,7 @@ def draw(component):
         y_2 = end[1] + head_size * np.sin(angle - np.pi / 6)
         coordinates = [end[0], end[1], x_1, y_1, x_2, y_2]
         canvas.create_polygon(coordinates, outline=color, fill=None)
-    elif component_type == ComponentType.NODE:
+    elif component_type == ComponentType.RECTANGULAR_NODE:
         position = component["position"]
         dimensions = component["dimensions"]
         background_color = component["background_color"]

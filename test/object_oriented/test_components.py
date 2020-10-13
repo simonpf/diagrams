@@ -1,8 +1,8 @@
 """
-Tests for diagram components.
+Tests for the diagrams.object_oriented.components module.
 """
 from diagrams.object_oriented.components import (Text, Rectangle, Arrow,
-                                                 Node, Color)
+                                                 RectangularNode, Color)
 
 def test_text():
     """
@@ -26,4 +26,4 @@ def test_node():
     """
     Test creation of node component.
     """
-    node = Node((0, 0), (100, 100), "Node 1")
+    node = RectangularNode((0, 0), (100, 100), "Node 1")

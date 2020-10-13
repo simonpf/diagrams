@@ -322,16 +322,15 @@ class Rectangle(ComponentBase, Connectable):
         return self.position + Coordinates(0, self.dimensions.y)
 
 ###############################################################################
-# Node
+# RectangularNode
 ###############################################################################
 
-class Node(ComponentBase, Connectable):
+class RectangularNode(ComponentBase, Connectable):
     """
     A node is a rectangular shape with a centered text.
 
     Attributes:
-        rectangle: The rectangle used to draw the node.
-        position: The position of the node.
+        text(Text): The text component of the node.
     """
     def __init__(self,
                  position,
