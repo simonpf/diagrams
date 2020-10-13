@@ -351,7 +351,7 @@ class RectangularNode(ComponentBase, Connectable):
         position = Coordinates(position)
         dimensions = Coordinates(dimensions)
         super().__init__(position, color)
-        self.rectangle = Rectangle(Coordinates(0, 0), dimensions, color=color)
+        self.rectangle = Rectangle(Coordinates(0, 0), dimensions)
         self.text = Text(text, dimensions * 0.5, color=Color.black())
 
     def draw(self, canvas, offset=Coordinates(0, 0)):
@@ -435,3 +435,119 @@ class RectangularNode(ComponentBase, Connectable):
         bottom left of the diagram component.
         """
         return self.rectangle.bottom_left + self.position
+
+###############################################################################
+# Circle
+###############################################################################
+
+
+class Circle(ComponentBase, Connectable):
+    """
+    A filled circle.
+
+    Attributes:
+        radius(float): The radius of the circle
+    """
+
+    def __init__(self, position, radius, color=Color.red()):
+        """
+        Create circle.
+
+            Args:
+                position(Coordinates): The position of center of the circle
+                    rectangle.
+                radius(``float``): The radius of the circle.
+                color(Color): The color with which to fill rectangle
+        """
+        super().__init__(Coordinates(position), color)
+        self.radius = radius
+
+    def draw(self, canvas, offset=Coordinates(0, 0)):
+        """
+        Draw rectangle on canvas.
+
+        Uses the ``ipycanvas`` API to draw a filled rectangle on the given HTML5 canvas
+        object.
+
+        Args:
+            canvas(ipycanvas.Canvas): Canvas to draw the rectangle on.
+        """
+        position = self.position + offset
+        x_1 = position.x - self.radius
+        y_1 = position.y - self.radius
+        x_2 = position.x + self.radius
+        y_2 = position.y + self.radius
+        canvas.create_oval(x_1, y_1, x_2, y_2, fill=str(self.color))
+
+    @property
+    def left(self):
+        """
+        ``Coordinates`` object representing the position located left of the
+        diagram component.
+        """
+        return self.position + Coordinates(-self.radius, 0)
+
+    @property
+    def top_left(self):
+        """
+        ``Coordinates`` object representing the position located upper left of
+        the diagram component.
+        """
+        return self.position + Coordinates(-self.radius / np.sqrt(2),
+                                           -self.radius / np.sqrt(2))
+
+    @property
+    def top(self):
+        """
+        ``Coordinates`` object representing the position located above of the
+        diagram component.
+        """
+        return self.position + Coordinates(0, -self.radius)
+
+    @property
+    def top_right(self):
+        """
+        ``Coordinates`` object representing the position located to the upper
+        right of the diagram component.
+        """
+        return self.position + Coordinates(+self.radius / np.sqrt(2),
+                                           -self.radius / np.sqrt(2))
+
+    @property
+    def right(self):
+        """
+        ``Coordinates`` object representing the position located to the
+        right of the diagram component.
+        """
+        return self.position + Coordinates(self.radius, 0)
+
+    @property
+    def bottom_right(self):
+        """
+        ``Coordinates`` object representing the position located at the
+        bottom right of the diagram component.
+        """
+        return self.position + Coordinates(self.radius / np.sqrt(2),
+                                           self.radius / np.sqrt(2))
+
+    @property
+    def bottom(self):
+        """
+        ``Coordinates`` object representing the position located below the
+        diagram component.
+        """
+        return self.position + Coordinates(0, self.radius)
+
+    @property
+    def bottom_left(self):
+        """
+        ``Coordinates`` object representing the position located at the
+        bottom left of the diagram component.
+        """
+        return self.position + Coordinates(-self.radius / np.sqrt(2),
+                                           self.radius / np.sqrt(2))
+
+
+###############################################################################
+# RectangularNode
+###############################################################################
