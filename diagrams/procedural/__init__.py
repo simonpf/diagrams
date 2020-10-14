@@ -2,7 +2,7 @@
 diagrams.procedural
 ===================
 
-This module provides an object oriented API for drawing diagrams using
+This module provides a procedural API for drawing diagrams using
 the tkinter graphical interface.
 """
 from diagrams.procedural.coordinates import *
